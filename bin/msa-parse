@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+# =============================================================================
+# Tool: taco
+# Author:  anoop <anoop@codecg.com>, Tau Films
+# =============================================================================
+"""
+Detailed description of the tool
+"""
+
+# General imports
+import logging
+import argparse
+import sys
+from PySide import QtGui, QtCore
+
+
+
+# Tool imports
+from base.panel import Msa_tool
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
+def _parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-loglevel",
+        nargs="?",
+        choices=["INFO", "DEBUG"],
+        default="INFO"
+    )
+
+    return parser.parse_args()
+
+def main():
+    args = _parse_args()
+    log_level = args.loglevel
+    logging.basicConfig(level=log_level)
+
+    QtCore.QCoreApplication.setApplicationName("MSA Parser")
+    QtCore.QCoreApplication.setOrganizationName("BITS Pilani Hyderabad")
+    # QtCore.QCoreApplication.setOrganizationDomain("")
+    QtCore.QSettings.setDefaultFormat(QtCore.QSettings.IniFormat)
+    app = QtGui.QApplication(sys.argv)
+    # image = QtGui.QImage(":icons/taco.png")
+    # pixmap = QtGui.QPixmap(500, 420)
+    # pixmap.fill(QtCore.Qt.white)
+    # painter = QtGui.QPainter(pixmap)
+    # painter.drawImage(pixmap.rect(), image)
+    # splash = QtGui.QSplashScreen(pixmap)
+    # splash.show()
+    # splash.showMessage(
+    #         "Please wait while your taco order is being served...",
+    #         QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom
+    # )
+    # painter.end()
+    # app.processEvents()
+    form = Msa_tool()
+    form.show()
+    # splash.finish(form)
+    sys.exit(app.exec_())
+
+# =============================================================================
+if '__main__' == __name__:
+    main()
