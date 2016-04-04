@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file './../python/base/widgets/main_tool_widget/resources/msa_tool.ui'
 #
-# Created: Mon Apr  4 10:21:48 2016
+# Created: Mon Apr  4 12:55:09 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -27,21 +27,21 @@ class Ui_msa_tool(object):
         self.label_2 = QtGui.QLabel(msa_tool)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
-        self.comboBox_shot = QtGui.QComboBox(msa_tool)
-        self.comboBox_shot.setObjectName("comboBox_shot")
-        self.horizontalLayout.addWidget(self.comboBox_shot)
+        self.comboBox_positions = QtGui.QComboBox(msa_tool)
+        self.comboBox_positions.setObjectName("comboBox_positions")
+        self.horizontalLayout.addWidget(self.comboBox_positions)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.label = QtGui.QLabel(msa_tool)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
-        self.comboBox_tasks = QtGui.QComboBox(msa_tool)
-        self.comboBox_tasks.setObjectName("comboBox_tasks")
-        self.horizontalLayout.addWidget(self.comboBox_tasks)
+        self.comboBox_mutations = QtGui.QComboBox(msa_tool)
+        self.comboBox_mutations.setObjectName("comboBox_mutations")
+        self.horizontalLayout.addWidget(self.comboBox_mutations)
         self.verticalLayout.addLayout(self.horizontalLayout)
-        self.treeView = QtGui.QTreeView(msa_tool)
-        self.treeView.setObjectName("treeView")
-        self.verticalLayout.addWidget(self.treeView)
+        self.view_mutations = QtGui.QTreeView(msa_tool)
+        self.view_mutations.setObjectName("view_mutations")
+        self.verticalLayout.addWidget(self.view_mutations)
         self.horizontalLayout_2.addLayout(self.verticalLayout)
         self.horizontalLayout_3.addLayout(self.horizontalLayout_2)
 

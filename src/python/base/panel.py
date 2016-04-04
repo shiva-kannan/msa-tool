@@ -34,6 +34,7 @@ class Msa_tool(QtGui.QMainWindow):
         self.ui.layout_actions.addWidget(self.msa_tool_widget)
 
         self.setCentralWidget(central_widget)
+        self.setWindowTitle('MSA TOOL')
 #
 # def main():
 #     app = QtGui.QApplication(sys.argv)

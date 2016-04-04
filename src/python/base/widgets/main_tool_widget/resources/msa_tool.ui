@@ -38,7 +38,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_shot"/>
+          <widget class="QComboBox" name="comboBox_positions"/>
          </item>
          <item>
           <spacer name="horizontalSpacer">
@@ -61,12 +61,12 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_tasks"/>
+          <widget class="QComboBox" name="comboBox_mutations"/>
          </item>
         </layout>
        </item>
        <item>
-        <widget class="QTreeView" name="treeView"/>
+        <widget class="QTreeView" name="view_mutations"/>
        </item>
       </layout>
      </item>

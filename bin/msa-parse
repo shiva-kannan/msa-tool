@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # =============================================================================
-# Tool: taco
-# Author:  anoop <anoop@codecg.com>, Tau Films
+# Tool: MSA TOOL
+# Author:  Shiva Kannan <sssk2006@gmail.com>
 # =============================================================================
 """
 Detailed description of the tool
@@ -39,7 +39,7 @@ def main():
 
     QtCore.QCoreApplication.setApplicationName("MSA Parser")
     QtCore.QCoreApplication.setOrganizationName("BITS Pilani Hyderabad")
-    # QtCore.QCoreApplication.setOrganizationDomain("")
+    QtCore.QCoreApplication.setOrganizationDomain("")
     QtCore.QSettings.setDefaultFormat(QtCore.QSettings.IniFormat)
     app = QtGui.QApplication(sys.argv)
     # image = QtGui.QImage(":icons/taco.png")
@@ -54,7 +54,8 @@ def main():
     #         QtCore.Qt.AlignLeft | QtCore.Qt.AlignBottom
     # )
     # painter.end()
-    # app.processEvents()
+    # central_widget = QtGui.QWidget()
+    app.processEvents()
     form = Msa_tool()
     form.show()
     # splash.finish(form)

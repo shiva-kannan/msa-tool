@@ -1,5 +1,5 @@
 """
-.. module:: tau.widgets.review_widget.widget
+.. module:: base.widgets.main_tool_widget.widget
    :platform: Unix (CentOS)
    :synopsis: ___DESC___
 
@@ -25,6 +25,30 @@ class MsaToolWidget(QtGui.QWidget):
 
         self.ui = Ui_msa_tool()
         self.ui.setupUi(self)
+
+        self.connect_widgets()
+
+
+    def connect_widgets(self):
+
+        self.ui.select_file.released.connect(self.select_msa_file)
+
+
+    def select_msa_file(self):
+        """
+        Get the file to be parsed through from file browser dialog.
+        :return:
+        """
+        open_file = QtGui.QFileDialog.getOpenFileName(
+            self,
+            caption="Select MEGA file"
+        )
+
+        file = open_file[0].decode('utf-8')
+
+        print file
+
+
 
 
 # =============================================================================
