@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file './../python/base/resources/tool_panel.ui'
 #
-# Created: Mon Apr  4 02:43:47 2016
+# Created: Mon Apr  4 10:21:48 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,8 +13,8 @@ class Ui_msa_tool_panel(object):
     def setupUi(self, msa_tool_panel):
         msa_tool_panel.setObjectName("msa_tool_panel")
         msa_tool_panel.resize(700, 516)
-        self.verticalLayout = QtGui.QVBoxLayout(msa_tool_panel)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout_3 = QtGui.QHBoxLayout(msa_tool_panel)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.splitter = QtGui.QSplitter(msa_tool_panel)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
@@ -41,7 +41,7 @@ class Ui_msa_tool_panel(object):
         self.horizontalLayout.addLayout(self.layout_actions)
         self.horizontalLayout_2.addWidget(self.frame_actions)
         self.verticalLayout_2.addWidget(self.widget_tools)
-        self.verticalLayout.addWidget(self.splitter)
+        self.horizontalLayout_3.addWidget(self.splitter)
 
         self.retranslateUi(msa_tool_panel)
         QtCore.QMetaObject.connectSlotsByName(msa_tool_panel)

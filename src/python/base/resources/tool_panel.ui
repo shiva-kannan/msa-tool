@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>MSA TOOL</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QHBoxLayout" name="horizontalLayout_3">
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
