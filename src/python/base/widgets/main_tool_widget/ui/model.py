@@ -22,14 +22,30 @@ from Bio.SubsMat import MatrixInfo
 # =============================================================================
 
 class DisplayMutations(QtGui.QStandardItemModel):
-    headers = []
+    headers = ['Position', 'Residue', 'No. of Mutations', 'Score']
 
     blosum = MatrixInfo.blosum62
 
+
     ITEM_ROLE = QtCore.Qt.UserRole + 1
 
-    def __init__(self, file, parent=None):
+    def __init__(self, parent=None):
         super(DisplayMutations, self).__init__()
-        self._mega_file = file
+        # self._mega_file = file
 
+        self.item = QtGui.QStandardItem
+        self.setHorizontalHeaderLabels(self.headers)
+        self.root_item = self.invisibleRootItem()
+
+    def fill_rows_mutations(self, no_mutation_dict, mutations_dict, blosum_dict):
+        """
+        This function fills the rows with the appropriate columns
+        :return:
+        """
+        for (k1,v1) , (k2, v2) , (k3,v3) in zip(no_mutation_dict.items(), mutations_dict.items(), blosum_dict.items()):
+            if v3 < -1:
+                row = [self.item(str(k1)), self.item(v2[0]),
+                       self.item(str(v1)), self.item(str(v3))]
+
+                self.root_item.appendRow(row)
 

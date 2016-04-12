@@ -40,7 +40,7 @@ def main():
     QtCore.QCoreApplication.setApplicationName("MSA Parser")
     QtCore.QCoreApplication.setOrganizationName("BITS Pilani Hyderabad")
     QtCore.QCoreApplication.setOrganizationDomain("")
-    QtCore.QSettings.setDefaultFormat(QtCore.QSettings.IniFormat)
+    # QtCore.QSettings.setDefaultFormat(QtCore.QSettings.IniFormat)
     app = QtGui.QApplication(sys.argv)
     # image = QtGui.QImage(":icons/taco.png")
     # pixmap = QtGui.QPixmap(500, 420)

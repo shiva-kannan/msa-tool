@@ -6,69 +6,64 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>678</width>
-    <height>291</height>
+    <width>860</width>
+    <height>338</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MSA Tool</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_3">
+  <layout class="QHBoxLayout" name="horizontalLayout_4">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QCommandLinkButton" name="select_file">
-       <property name="text">
-        <string>Select MEGA File</string>
-       </property>
-       <property name="description">
-        <string>Select MEGA file from your system to parse through</string>
-       </property>
-      </widget>
-     </item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <widget class="QCommandLinkButton" name="select_file">
+         <property name="text">
+          <string>Select MEGA File</string>
+         </property>
+         <property name="description">
+          <string>Select MEGA file from your system to parse through</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Positions</string>
+            <string>Positions: </string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QComboBox" name="comboBox_positions"/>
          </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Mutations</string>
+            <string>Matrix Type:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_mutations"/>
+          <widget class="QComboBox" name="comboBox_matrices"/>
          </item>
         </layout>
        </item>
-       <item>
-        <widget class="QTreeView" name="view_mutations"/>
-       </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QTreeView" name="treeView_mutations">
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
