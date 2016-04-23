@@ -46,6 +46,7 @@ class DisplayMutations(QtGui.QStandardItemModel):
             if v3 < -1:
                 row = [self.item(str(k1)), self.item(v2[0]),
                        self.item(str(v1)), self.item(str(v3))]
-
+                # for item in row:
+                #     item.setSelectable(False)
                 self.root_item.appendRow(row)
 

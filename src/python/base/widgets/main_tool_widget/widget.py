@@ -11,12 +11,12 @@
 # =============================================================================
 
 # General imports
-from PySide import QtCore, QtGui
 from Bio.SubsMat import MatrixInfo
+from PySide import QtGui
 
 # Tool imports
 from base.widgets.main_tool_widget.ui.msa_tool import Ui_msa_tool
-from base.widgets.main_tool_widget.ui.model import DisplayMutations
+from base.widgets.main_tool_widget.model import DisplayMutations
 
 # =============================================================================
 # CLASSES
@@ -100,8 +100,24 @@ class MsaToolWidget(QtGui.QWidget):
                 seq_dict[item] = i
                 i += 1
 
+        # print seq_dict
         actual_seq_dict = {}
         infile1 = open(file)
+
+        ####### New Code ###############
+        main_strains_dict = {}
+        infile3 = open(file)
+        index = 0
+        for line  in infile3:
+            if '#' in line and '#MEGA' not in line:
+                if line.split(' ')[0] not in main_strains_dict.values():
+                    main_strains_dict[index] = line.split(' ')[0]
+                    main_strains_dict[line.split(' ')[0]] = index
+                index += 1
+
+        # print main_strains_dict
+        infile3.close()
+
         list_temp = ['' for i in range(len(seq_list))]
         k = 0
         for line in infile1:
@@ -110,25 +126,72 @@ class MsaToolWidget(QtGui.QWidget):
                 sequence = s[1].replace(' ', '')
                 sequence = sequence.replace('\n', '')
                 sequence = sequence.replace('\r', '')
-                list_temp[seq_dict[line.split(' ')[0]]] = list_temp[seq_dict[line.split(' ')[0]]] + sequence
+                list_temp[main_strains_dict[line.split(' ')[0]]] = list_temp[main_strains_dict[line.split(' ')[0]]] + sequence
 
-        # for item in list_temp:
-        #     print item
-        #print len(list_temp)
+
         no_mutation_dict = {}
         mutations_dict = {}
+        mutations_new_dict = {}
 
         for i in range(len(list_temp[0])):
             count = 0
             temp = []
+            index = 1
             temp.append(list_temp[0][i])
+            ## NC ##
+            temp_new = []
+            t = {}
+            t[list_temp[0][i]] = main_strains_dict[0]
+            temp_new.append(t)
             for item in list_temp[1:]:
                 if not (item[i] == '.' or item[i] == '-'):
                     #print i , item[i]
+                    tn = {}
+                    tn[item[i]] = main_strains_dict[index]
+                    temp_new.append(tn)
                     temp.append(item[i])
                     count += 1
+                index += 1
+            mutations_new_dict[i] = temp_new
             mutations_dict[i] = temp
             no_mutation_dict[i] = count
+
+        # for item in mutations_new_dict:
+        #     print item , mutations_new_dict[item]
+
+        ########## New Code ############
+
+        # list_temp = ['' for i in range(len(seq_list))]
+        # k = 0
+        # for line in infile1:
+        #     if '#' in line and '#MEGA' not in line:
+        #         s = line.split(line.split(' ')[0])
+        #         sequence = s[1].replace(' ', '')
+        #         sequence = sequence.replace('\n', '')
+        #         sequence = sequence.replace('\r', '')
+        #         list_temp[seq_dict[line.split(' ')[0]]] = list_temp[seq_dict[line.split(' ')[0]]] + sequence
+
+
+
+
+
+        # for item in list_temp:
+        #     print item
+        # print len(list_temp)
+        # no_mutation_dict = {}
+        # mutations_dict = {}
+        #
+        # for i in range(len(list_temp[0])):
+        #     count = 0
+        #     temp = []
+        #     temp.append(list_temp[0][i])
+        #     for item in list_temp[1:]:
+        #         if not (item[i] == '.' or item[i] == '-'):
+        #             #print i , item[i]
+        #             temp.append(item[i])
+        #             count += 1
+        #     mutations_dict[i] = temp
+        #     no_mutation_dict[i] = count
 
         blosum_dict = {}
 
@@ -169,6 +232,10 @@ class MsaToolWidget(QtGui.QWidget):
 
         infile1.close()
         infile2.close()
+
+        # print no_mutation_dict
+        print mutations_dict
+        print blosum_dict
 
         self.display_minimum_model.fill_rows_mutations(no_mutation_dict, mutations_dict, blosum_dict)
         self.fill_positions_dropdown(no_mutation_dict, blosum_dict)
