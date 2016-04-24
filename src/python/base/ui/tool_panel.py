@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file './../python/base/resources/tool_panel.ui'
 #
-# Created: Sat Apr 23 12:11:55 2016
+# Created: Sun Apr 24 00:22:18 2016
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!

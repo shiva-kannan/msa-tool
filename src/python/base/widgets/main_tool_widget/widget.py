@@ -12,11 +12,12 @@
 
 # General imports
 from Bio.SubsMat import MatrixInfo
-from PySide import QtGui
+from PySide import QtGui, QtCore
 
 # Tool imports
 from base.widgets.main_tool_widget.ui.msa_tool import Ui_msa_tool
 from base.widgets.main_tool_widget.model import DisplayMutations
+from base.widgets.detail_widget.widget import MsaDetailedToolWidget
 
 # =============================================================================
 # CLASSES
@@ -40,10 +41,21 @@ class MsaToolWidget(QtGui.QWidget):
         self.display_minimum_model = DisplayMutations(parent=self)
         self.ui.treeView_mutations.setModel(self.display_minimum_model)
 
+        self.mutations_new_dict = {}
+        self.no_mutation_dict = {}
+        self.mutations_dict = {}
+        self.blosum_dict = {}
+
+        self.threshold = ['All', 'Negative ( <= 0)', 'Negative ( <= -1)']
+
 
     def connect_widgets(self):
 
         self.ui.select_file.released.connect(self.select_msa_file)
+
+        self.ui.treeView_mutations.doubleClicked.connect(self.show_detailed_mutations)
+
+        self.ui.comboBox_threshold.currentIndexChanged.connect(self.reload_mutations)
 
 
 
@@ -55,6 +67,16 @@ class MsaToolWidget(QtGui.QWidget):
 
         for matrix in MATRICES:
             self.ui.comboBox_matrices.addItem(matrix)
+        self.ui.comboBox_matrices.setCurrentIndex(2)
+
+    def show_detailed_mutations(self):
+        selections = self.ui.treeView_mutations.selectedIndexes()
+        selected =  selections[0].model().data(selections[0], QtCore.Qt.UserRole)
+        mutations_detailed = self.mutations_new_dict[selected]
+        # for item in mutations_detailed:
+        #     print item
+        self.detailed_mutations = MsaDetailedToolWidget(mutations_strains=mutations_detailed, position=selected)
+        self.detailed_mutations.show()
 
     def select_msa_file(self):
         """
@@ -129,9 +151,9 @@ class MsaToolWidget(QtGui.QWidget):
                 list_temp[main_strains_dict[line.split(' ')[0]]] = list_temp[main_strains_dict[line.split(' ')[0]]] + sequence
 
 
-        no_mutation_dict = {}
-        mutations_dict = {}
-        mutations_new_dict = {}
+        # no_mutation_dict = {}
+        # mutations_dict = {}
+        # mutations_new_dict = {}
 
         for i in range(len(list_temp[0])):
             count = 0
@@ -152,9 +174,9 @@ class MsaToolWidget(QtGui.QWidget):
                     temp.append(item[i])
                     count += 1
                 index += 1
-            mutations_new_dict[i] = temp_new
-            mutations_dict[i] = temp
-            no_mutation_dict[i] = count
+            self.mutations_new_dict[i] = temp_new
+            self.mutations_dict[i] = temp
+            self.no_mutation_dict[i] = count
 
         # for item in mutations_new_dict:
         #     print item , mutations_new_dict[item]
@@ -193,22 +215,22 @@ class MsaToolWidget(QtGui.QWidget):
         #     mutations_dict[i] = temp
         #     no_mutation_dict[i] = count
 
-        blosum_dict = {}
+        # blosum_dict = {}
 
-        for item in mutations_dict:
+        for item in self.mutations_dict:
             score = 0
-            if len(mutations_dict[item][1:]) !=0 :
-                for i in mutations_dict[item][1:]:
-                        if mutations_dict[item][0] == '-':
-                            score = len(mutations_dict[item][1:])*-5
+            if len(self.mutations_dict[item][1:]) !=0 :
+                for i in self.mutations_dict[item][1:]:
+                        if self.mutations_dict[item][0] == '-':
+                            score = len(self.mutations_dict[item][1:])*-5
                         elif i == '?':
                             continue
                         else:
                             try :
-                                score += MATRICES['BLOSUM 62'][(mutations_dict[item][0],i)]
+                                score += MATRICES['BLOSUM 62'][(self.mutations_dict[item][0],i)]
                             except KeyError:
-                                score += MATRICES['BLOSUM 62'][(i,mutations_dict[item][0])]
-            blosum_dict[item] = score
+                                score += MATRICES['BLOSUM 62'][(i,self.mutations_dict[item][0])]
+            self.blosum_dict[item] = score
 
         # for m in mutations_dict:
         #     print mutations_dict[m]
@@ -234,17 +256,38 @@ class MsaToolWidget(QtGui.QWidget):
         infile2.close()
 
         # print no_mutation_dict
-        print mutations_dict
-        print blosum_dict
+        # print mutations_dict
+        # print blosum_dict
 
-        self.display_minimum_model.fill_rows_mutations(no_mutation_dict, mutations_dict, blosum_dict)
-        self.fill_positions_dropdown(no_mutation_dict, blosum_dict)
 
-    def fill_positions_dropdown(self, no_mutations, blosum_dict):
+        self.fill_threshold_dropdown()
 
-        for (k1, v1) , (k2, v2) in zip(no_mutations.items(), blosum_dict.items()):
-            if v2 < -1:
-                self.ui.comboBox_positions.addItem(str(k1))
+        self.display_minimum_model.fill_rows_mutations(self.no_mutation_dict,
+                                                       self.mutations_dict,
+                                                       self.blosum_dict,
+                                                       threshold=-1)
+
+
+    def reload_mutations(self):
+
+        index = self.ui.comboBox_threshold.currentIndex()
+        if index == 0:
+            threshold = None
+        elif index == 1:
+            threshold = 0
+        else:
+            threshold = -1
+        self.display_minimum_model.fill_rows_mutations(self.no_mutation_dict,
+                                                       self.mutations_dict,
+                                                       self.blosum_dict,
+                                                       threshold=threshold)
+
+    def fill_threshold_dropdown(self):
+
+        for threshold in self.threshold:
+            self.ui.comboBox_threshold.addItem(threshold)
+        self.ui.comboBox_threshold.setCurrentIndex(2)
+
 
 
 

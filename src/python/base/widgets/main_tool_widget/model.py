@@ -34,19 +34,27 @@ class DisplayMutations(QtGui.QStandardItemModel):
         # self._mega_file = file
 
         self.item = QtGui.QStandardItem
-        self.setHorizontalHeaderLabels(self.headers)
-        self.root_item = self.invisibleRootItem()
 
-    def fill_rows_mutations(self, no_mutation_dict, mutations_dict, blosum_dict):
+
+    def fill_rows_mutations(self, no_mutation_dict, mutations_dict, blosum_dict, threshold=None):
         """
         This function fills the rows with the appropriate columns
         :return:
         """
+        self.clear()
+        self.setHorizontalHeaderLabels(self.headers)
+        self.root_item = self.invisibleRootItem()
+
         for (k1,v1) , (k2, v2) , (k3,v3) in zip(no_mutation_dict.items(), mutations_dict.items(), blosum_dict.items()):
-            if v3 < -1:
+            if threshold != None:
+                if v3 < threshold:
+                    row = [self.item(str(k1)), self.item(v2[0]),
+                           self.item(str(v1)), self.item(str(v3))]
+                    row[0].setData(k1, QtCore.Qt.UserRole)
+                    self.root_item.appendRow(row)
+            else:
                 row = [self.item(str(k1)), self.item(v2[0]),
-                       self.item(str(v1)), self.item(str(v3))]
-                # for item in row:
-                #     item.setSelectable(False)
+                           self.item(str(v1)), self.item(str(v3))]
+                row[0].setData(k1, QtCore.Qt.UserRole)
                 self.root_item.appendRow(row)
 
