@@ -16,6 +16,14 @@ This tool is mainly to parse through an MSA file (in the MEGA format) and give o
 * Code review
 * Other guidelines
 
+
+### Functionalities ###
+
+Majorly 2 windows:
+
+* First windows asks user to select MEGA file from desktop. It shows minimal information of how many mutations and the score.
+
+
 ### Who do I talk to? ###
 
 * Shiva Kannan <sssk2006@gmail.com>
