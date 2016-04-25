@@ -255,11 +255,6 @@ class MsaToolWidget(QtGui.QWidget):
         infile1.close()
         infile2.close()
 
-        # print no_mutation_dict
-        # print mutations_dict
-        # print blosum_dict
-
-
         self.fill_threshold_dropdown()
 
         self.display_minimum_model.fill_rows_mutations(self.no_mutation_dict,
