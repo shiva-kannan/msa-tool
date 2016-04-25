@@ -23,6 +23,8 @@ Majorly 2 windows:
 
 * First windows asks user to select MEGA file from desktop. It shows minimal information of how many mutations and the score.
 
+* Second window pops up when user double clicks the residue . It shows a detailed overview of the mutations.
+
 
 ### Who do I talk to? ###
 
