@@ -39,23 +39,40 @@ class MsaToolWidget(QtGui.QWidget):
         self.connect_widgets()
 
         self.display_minimum_model = DisplayMutations(parent=self)
+        # self.proxy_model = QtGui.QSortFilterProxyModel(self)
+        # self.proxy_model.setSourceModel(self.display_minimum_model)
         self.ui.treeView_mutations.setModel(self.display_minimum_model)
 
         self.mutations_new_dict = {}
         self.no_mutation_dict = {}
         self.mutations_dict = {}
         self.blosum_dict = {}
+        self.disable_ui_elements = []
 
-        self.threshold = ['All', 'Negative ( <= 0)', 'Negative ( <= -1)']
+        # Initially disable UI elements that have no significance before file is selected.
+        self.ui.lineEdit_max_range.setDisabled(True)
+        self.disable_ui_elements.append(self.ui.lineEdit_max_range)
+        self.ui.lineEdit_min_range.setDisabled(True)
+        self.disable_ui_elements.append(self.ui.lineEdit_min_range)
+        self.ui.pushButton_apply_range.setDisabled(True)
+        self.disable_ui_elements.append(self.ui.pushButton_apply_range)
+        self.ui.comboBox_matrices.setDisabled(True)
+        self.disable_ui_elements.append(self.ui.comboBox_matrices)
+        self.ui.comboBox_threshold.setDisabled(True)
+        self.disable_ui_elements.append(self.ui.comboBox_threshold)
+
+        self.threshold = ['All', 'Negative ( < 0)', 'Negative ( < -1)']
 
 
     def connect_widgets(self):
+
+        self.ui.pushButton_apply_range.released.connect(self.apply_residue_range)
 
         self.ui.select_file.released.connect(self.select_msa_file)
 
         self.ui.treeView_mutations.doubleClicked.connect(self.show_detailed_mutations)
 
-        self.ui.comboBox_threshold.currentIndexChanged.connect(self.reload_mutations)
+        self.ui.comboBox_threshold.currentIndexChanged.connect(self.apply_residue_range)
 
 
 
@@ -65,9 +82,12 @@ class MsaToolWidget(QtGui.QWidget):
         :return:
         """
 
+        # TODO : For now have included only the BLOSUM 62 Matrix
         for matrix in MATRICES:
-            self.ui.comboBox_matrices.addItem(matrix)
-        self.ui.comboBox_matrices.setCurrentIndex(2)
+            if matrix == "BLOSUM 62":
+                self.ui.comboBox_matrices.addItem(matrix)
+        self.ui.comboBox_matrices.setCurrentIndex(0)
+        self.ui.comboBox_matrices.setEditable(False)
 
     def show_detailed_mutations(self):
         selections = self.ui.treeView_mutations.selectedIndexes()
@@ -89,8 +109,6 @@ class MsaToolWidget(QtGui.QWidget):
         )
 
         file = open_file[0].decode('utf-8')
-
-        print file
 
         self.process_mega_file(file=file)
 
@@ -154,6 +172,8 @@ class MsaToolWidget(QtGui.QWidget):
         # no_mutation_dict = {}
         # mutations_dict = {}
         # mutations_new_dict = {}
+
+        self.number_of_elements = len(list_temp[0])
 
         for i in range(len(list_temp[0])):
             count = 0
@@ -255,33 +275,60 @@ class MsaToolWidget(QtGui.QWidget):
         infile1.close()
         infile2.close()
 
+        # Consequent display of UI elements that needed file to be selected.
+        self.fill_initial_range()
         self.fill_threshold_dropdown()
+
+        for element in self.disable_ui_elements:
+            element.setDisabled(False)
 
         self.display_minimum_model.fill_rows_mutations(self.no_mutation_dict,
                                                        self.mutations_dict,
                                                        self.blosum_dict,
                                                        threshold=-1)
 
-
-    def reload_mutations(self):
-
-        index = self.ui.comboBox_threshold.currentIndex()
-        if index == 0:
-            threshold = None
-        elif index == 1:
-            threshold = 0
-        else:
-            threshold = -1
-        self.display_minimum_model.fill_rows_mutations(self.no_mutation_dict,
-                                                       self.mutations_dict,
-                                                       self.blosum_dict,
-                                                       threshold=threshold)
-
     def fill_threshold_dropdown(self):
 
         for threshold in self.threshold:
             self.ui.comboBox_threshold.addItem(threshold)
         self.ui.comboBox_threshold.setCurrentIndex(2)
+
+    def fill_initial_range(self):
+
+
+        self.ui.lineEdit_min_range.setText('0')
+        self.ui.lineEdit_max_range.setText(str(self.number_of_elements))
+
+
+    def apply_residue_range(self):
+
+        min_range = int(self.ui.lineEdit_min_range.text())
+        max_range = int(self.ui.lineEdit_max_range.text())
+        message = QtGui.QMessageBox()
+
+
+        if (max_range - min_range <= 0) or min_range < 0 or max_range < 0 :
+
+            message.setText("Input Range is invalid!")
+            message.setInformativeText("Please enter a valid subset of the Range 0 - %s"
+                                       %(str(self.number_of_elements)))
+            message.setStandardButtons(QtGui.QMessageBox.Ok)
+            ret = message.exec_()
+        else:
+            index = self.ui.comboBox_threshold.currentIndex()
+            if index == 0:
+                threshold = None
+            elif index == 1:
+                threshold = 0
+            else:
+                threshold = -1
+            residue_range = min_range , max_range
+            self.display_minimum_model.fill_rows_mutations(self.no_mutation_dict,
+                                                           self.mutations_dict,
+                                                           self.blosum_dict,
+                                                           threshold=threshold,
+                                                           residue_range=residue_range)
+
 
 
 
