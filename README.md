@@ -12,7 +12,7 @@ This tool is mainly to parse through an MSA file (in the MEGA format) and give o
 
 Majorly 2 widgets:
 
-* First (main) widget asks user to select MEGA file from desktop. It shows minimal information of how many mutations and the score.
+*  First (main) widget asks user to select MEGA file from desktop. It shows minimal information of how many mutations and the score. 
   * * The main window lets you select the MEGA file from your file browser
 ![MEGA-Parser-1.png](https://bitbucket.org/repo/78kqxa/images/3542482548-MEGA-Parser-1.png)
   
@@ -24,7 +24,10 @@ Majorly 2 widgets:
 * * The following is an example when a residue is clicked from the first window.
 ![MEGA-Parser-3.png](https://bitbucket.org/repo/78kqxa/images/3595676017-MEGA-Parser-3.png)
 
+### Buttons and their functions ###
 
+* Residue range selection:
+![MEGA-Parser-4.png](https://bitbucket.org/repo/78kqxa/images/777790802-MEGA-Parser-4.png)
 
 ### Who do I talk to? ###
 
