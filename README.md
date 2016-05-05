@@ -26,8 +26,19 @@ Majorly 2 widgets:
 
 ### Buttons and their functions ###
 
-* Residue range selection:
+* * Residue range selection: This lets you select the range of residues that you particularly want to filter out. Note: Should click the Apply Filter button for it to be effective.
+
 ![MEGA-Parser-4.png](https://bitbucket.org/repo/78kqxa/images/777790802-MEGA-Parser-4.png)
+
+* * Substitution Matrix score-threshold selection : The score as shown in the 4th column represents the cumulative summation of the scores of the mutations that have happened from the wild type. 
+This can be filtered => 1) All scores 2) Scores < 0 3) Scores < -1
+![MEGA-Parser-5 copy.png](https://bitbucket.org/repo/78kqxa/images/2445093433-MEGA-Parser-5%20copy.png)
+
+* * Double-click on the residue from the detailed window will take you to the Uniprot page of the strain.
+![Screen Shot 2016-05-05 at 11.58.16 pm.png](https://bitbucket.org/repo/78kqxa/images/2895939361-Screen%20Shot%202016-05-05%20at%2011.58.16%20pm.png)
+
+Uniprot Query : 
+![Screen Shot 2016-05-05 at 11.58.35 pm.png](https://bitbucket.org/repo/78kqxa/images/1687665438-Screen%20Shot%202016-05-05%20at%2011.58.35%20pm.png)
 
 ### Who do I talk to? ###
 
