@@ -8,37 +8,37 @@ This tool is mainly to parse through an MSA file (in the MEGA format) and give o
 ### Contribution guidelines ###
 
 
-### Functionalities ###
+### Functionality ###
 
-Majorly 2 widgets:
+2 widgets:
 
 *  First (main) widget asks user to select MEGA file from desktop. It shows minimal information of how many mutations and the score. 
   * * The main window lets you select the MEGA file from your file browser
-![MEGA-Parser-1.png](https://bitbucket.org/repo/78kqxa/images/3542482548-MEGA-Parser-1.png)
+![MEGA-Parser-1.png](images/MEGA-Parser-1.png)
   
-  * * Once the file is selected it displays to you the details in the tabular form as shown.![MEGA-Parser-2.png](https://bitbucket.org/repo/78kqxa/images/3094213463-MEGA-Parser-2.png)
+  * * Once the file is selected it displays to you the details in the tabular form as shown.![MEGA-Parser-2.png](images/MEGA-Parser-2.png)
 
   
 * Second window pops up when user double clicks the residue . It shows a detailed overview of the mutations.
 
 * * The following is an example when a residue is clicked from the first window.
-![MEGA-Parser-3.png](https://bitbucket.org/repo/78kqxa/images/3595676017-MEGA-Parser-3.png)
+![MEGA-Parser-3.png](images/MEGA-Parser-3.png)
 
 ### Buttons and their functions ###
 
 * * Residue range selection: This lets you select the range of residues that you particularly want to filter out. Note: Should click the Apply Filter button for it to be effective.
 
-![MEGA-Parser-4.png](https://bitbucket.org/repo/78kqxa/images/777790802-MEGA-Parser-4.png)
+![MEGA-Parser-4.png](images/MEGA-Parser-4.png)
 
 * * Substitution Matrix score-threshold selection : The score as shown in the 4th column represents the cumulative summation of the scores of the mutations that have happened from the wild type. 
 This can be filtered => 1) All scores 2) Scores < 0 3) Scores < -1
-![MEGA-Parser-5 copy.png](https://bitbucket.org/repo/78kqxa/images/2445093433-MEGA-Parser-5%20copy.png)
+![MEGA-Parser-5.png](images/MEGA-Parser-5.png)
 
 * * Double-click on the residue from the detailed window will take you to the Uniprot page of the strain.
-![Screen Shot 2016-05-05 at 11.58.16 pm.png](https://bitbucket.org/repo/78kqxa/images/2895939361-Screen%20Shot%202016-05-05%20at%2011.58.16%20pm.png)
+![MEGA-Parser-6.png](images/MEGA-Parser-6.png)
 
 Uniprot Query : 
-![Screen Shot 2016-05-05 at 11.58.35 pm.png](https://bitbucket.org/repo/78kqxa/images/1687665438-Screen%20Shot%202016-05-05%20at%2011.58.35%20pm.png)
+![MEGA-Parser-7.png](images/MEGA-Parser-7.png)
 
 ### Who do I talk to? ###
 
